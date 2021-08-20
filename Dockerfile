@@ -17,7 +17,8 @@ FROM ibmcom/websphere-liberty:20.0.0.6-full-java11-openj9-ubi
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 ENV PATH /project/target/liberty/wlp/bin/:$PATH
 
-COPY --from=builder /app/target/liberty/wlp/usr/servers/defaultServer /config/
+COPY --from=builder /app/target/liberty/wlp/usr/servers/defaultServer /opt/ibm/wlp/usr/servers/defaultServer/
+
 
 # Grant write access to apps folder, this is to support old and new docker versions.
 # Liberty document reference : https://hub.docker.com/_/websphere-liberty/
