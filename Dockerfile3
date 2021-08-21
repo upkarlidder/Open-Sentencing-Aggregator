@@ -1,0 +1,15 @@
+FROM adoptopenjdk/maven-openjdk11 as BUILD
+ 
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+WORKDIR /usr/src/app
+RUN mvn package
+
+FROM open-liberty:19.0.0.9-kernel-java11
+
+COPY src/main/liberty/config/server.xml /config/
+
+COPY --from=BUILD /usr/src/app/target/*.war /config/dropins/
+
+
+EXPOSE 9080
